@@ -1,0 +1,10 @@
+{
+  "users": [
+    { "id": 1, "name": "John Doe", "role": "admin" },
+    { "id": 2, "name": "Jane Smith", "role": "developer" }
+  ],
+  "products": [
+    { "id": 101, "name": "Mechanical Keyboard", "price": 120 },
+    { "id": 102, "name": "Wireless Mouse", "price": 50 }
+  ]
+}
