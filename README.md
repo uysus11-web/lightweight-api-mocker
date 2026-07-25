@@ -16,5 +16,5 @@ A lightning-fast, highly accessible local server for mocking API responses. Desi
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/uysus11-web/lightweight-api-mocker.git](https://github.com/uysus11-web/lightweight-api-mocker.git)
+   git clone https://github.com/uysus11-web/lightweight-api-mocker.git
    cd lightweight-api-mocker
