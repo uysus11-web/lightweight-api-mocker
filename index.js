@@ -17,6 +17,7 @@ try {
     console.error("Error loading db.json. Make sure the file exists.");
 }
 
+// GET request - Lấy dữ liệu
 app.get('/api/:resource', (req, res) => {
     const resource = req.params.resource;
     if (mockData[resource]) {
@@ -26,10 +27,22 @@ app.get('/api/:resource', (req, res) => {
     }
 });
 
+// POST request - Thêm dữ liệu giả
+app.post('/api/:resource', (req, res) => {
+    const resource = req.params.resource;
+    if (mockData[resource]) {
+        const newItem = { id: Date.now(), ...req.body };
+        mockData[resource].push(newItem);
+        res.status(201).json(newItem);
+    } else {
+        res.status(404).json({ error: "Resource not found" });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`🚀 API Mocker is running on http://localhost:${PORT}`);
     console.log(`Available endpoints:`);
     Object.keys(mockData).forEach(key => {
-        console.log(`- http://localhost:${PORT}/api/${key}`);
+        console.log(`- GET/POST: http://localhost:${PORT}/api/${key}`);
     });
 });
