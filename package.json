@@ -1,7 +1,6 @@
-```json
 {
   "name": "lightweight-api-mocker",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A lightweight local server for mocking API responses instantly.",
   "main": "index.js",
   "scripts": {
@@ -9,8 +8,7 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.18.2"
-  },
-  "author": "uysus11-web",
-  "license": "MIT"
+    "express": "^4.18.2",
+    "@faker-js/faker": "^8.4.0"
+  }
 }
