@@ -17,7 +17,7 @@ try {
     console.error("Error loading db.json. Make sure the file exists.");
 }
 
-// GET request - Lấy dữ liệu
+// 1. GET - Lấy dữ liệu
 app.get('/api/:resource', (req, res) => {
     const resource = req.params.resource;
     if (mockData[resource]) {
@@ -27,7 +27,7 @@ app.get('/api/:resource', (req, res) => {
     }
 });
 
-// POST request - Thêm dữ liệu giả
+// 2. POST - Thêm dữ liệu
 app.post('/api/:resource', (req, res) => {
     const resource = req.params.resource;
     if (mockData[resource]) {
@@ -39,10 +39,43 @@ app.post('/api/:resource', (req, res) => {
     }
 });
 
+// 3. PUT - Sửa dữ liệu
+app.put('/api/:resource/:id', (req, res) => {
+    const { resource, id } = req.params;
+    if (mockData[resource]) {
+        const index = mockData[resource].findIndex(item => item.id == id);
+        if (index !== -1) {
+            mockData[resource][index] = { ...mockData[resource][index], ...req.body };
+            res.json(mockData[resource][index]);
+        } else {
+            res.status(404).json({ error: "Item not found" });
+        }
+    } else {
+        res.status(404).json({ error: "Resource not found" });
+    }
+});
+
+// 4. DELETE - Xóa dữ liệu
+app.delete('/api/:resource/:id', (req, res) => {
+    const { resource, id } = req.params;
+    if (mockData[resource]) {
+        const initialLength = mockData[resource].length;
+        mockData[resource] = mockData[resource].filter(item => item.id != id);
+        if (mockData[resource].length < initialLength) {
+            res.status(200).json({ message: "Item deleted successfully" });
+        } else {
+            res.status(404).json({ error: "Item not found" });
+        }
+    } else {
+        res.status(404).json({ error: "Resource not found" });
+    }
+});
+
 app.listen(PORT, () => {
-    console.log(`🚀 API Mocker is running on http://localhost:${PORT}`);
+    console.log(`🚀 API Mocker v1.9.4 is running on http://localhost:${PORT}`);
     console.log(`Available endpoints:`);
     Object.keys(mockData).forEach(key => {
         console.log(`- GET/POST: http://localhost:${PORT}/api/${key}`);
+        console.log(`- PUT/DELETE: http://localhost:${PORT}/api/${key}/:id`);
     });
 });
